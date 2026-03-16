@@ -5,6 +5,7 @@ export class GameController {
     #view;
     #playerBoard;
     #enemyBoard;
+    #playerTurn = true;
     #isGameOver = false;
 
     constructor(view) {
@@ -40,7 +41,7 @@ export class GameController {
     }
 
     handleBoardClick(x, y) {
-        if (this.#isGameOver) return;
+        if (this.#isGameOver || !this.#playerTurn) return;
 
         try {
             const isHit = this.#enemyBoard.receiveAttack(x, y);
@@ -61,13 +62,13 @@ export class GameController {
     }
 
     #updateUI() {
-        this.#view.renderView(
+        this.#view.updateView(
             this.#view.playerBoardDiv,
             this.#playerBoard,
             false,
         );
 
-        this.#view.renderView(this.#view.enemyBoardDiv, this.#enemyBoard, true);
+        this.#view.updateView(this.#view.enemyBoardDiv, this.#enemyBoard, true);
     }
 
     #computerTurn() {

@@ -1,16 +1,15 @@
 export class Gameboard {
     static BOARD_SIZE = 10;
 
-    #board = Array(10)
-        .fill()
-        .map(() =>
-            Array(Gameboard.BOARD_SIZE).fill({ ship: null, isAttacked: false }),
-        );
+    #board = Array.from({ length: 10 }, () =>
+        Array.from({ length: 10 }, () => ({ ship: null, isAttacked: false })),
+    );
     #ships = [];
 
     placeShip(ship, x, y, isVertical) {
-        if (!this.#validateCoords) return false;
-        if (this.#board[x][y].ship) return false;
+        if (!this.#validateCoords(x, y))
+            throw Error("You need to provide valid coords");
+        if (this.#board[x][y].ship) throw Error("Cell is already occupied");
 
         if (!this.#canPlace(ship, x, y, isVertical)) {
             throw Error("Unable to place the ship in given coords");
@@ -58,6 +57,7 @@ export class Gameboard {
         if (cell.isAttacked === true) throw Error("Cell already attacked");
 
         cell.isAttacked = true;
+
         if (cell.ship) {
             cell.ship.hit();
             return true;
@@ -71,7 +71,7 @@ export class Gameboard {
     }
 
     get board() {
-        return structuredClone(this.#board);
+        return this.#board;
     }
 
     #validateCoords(x, y) {

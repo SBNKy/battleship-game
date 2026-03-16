@@ -7,9 +7,9 @@ export class GameView {
         this.enemyBoardDiv = document.querySelector(".enemy-board");
     }
 
-    renderView(boardElement, board, isComputer) {}
+    renderView() {}
 
-    updateView() {}
+    updateView(boardElement, board, isComputer) {}
 
     bindAttack(handler) {
         this.enemyBoardDiv.addEventListener("click", (e) => {
