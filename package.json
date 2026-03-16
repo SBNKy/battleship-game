@@ -1,0 +1,39 @@
+{
+    "name": "webpack-template",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "dev": "webpack serve --config webpack.dev.js",
+        "build": "webpack --config webpack.prod.js",
+        "deploy": "gh-pages -d dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SBNKy/webpack-template.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SBNKy/webpack-template/issues"
+    },
+    "homepage": "https://github.com/SBNKy/webpack-template#readme",
+    "devDependencies": {
+        "@babel/preset-env": "^7.29.0",
+        "@eslint/js": "^10.0.1",
+        "css-loader": "^7.1.2",
+        "eslint": "^10.0.0",
+        "eslint-config-prettier": "^10.1.8",
+        "globals": "^17.3.0",
+        "html-loader": "^5.1.0",
+        "html-webpack-plugin": "^5.6.6",
+        "jest": "^30.2.0",
+        "style-loader": "^4.0.0",
+        "webpack": "^5.104.1",
+        "webpack-cli": "^6.0.1",
+        "webpack-dev-server": "^5.2.3",
+        "webpack-merge": "^6.0.1"
+    }
+}
