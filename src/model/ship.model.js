@@ -2,8 +2,12 @@ export class Ship {
     #length;
     #hits = 0;
 
-    constructor(x, y, length) {
+    constructor(length) {
         this.#length = length;
+    }
+
+    get length() {
+        return this.#length;
     }
 
     hit() {
