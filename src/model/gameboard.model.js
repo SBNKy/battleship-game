@@ -4,12 +4,12 @@ export class Gameboard {
     #board = Array.from({ length: 10 }, () =>
         Array.from({ length: 10 }, () => ({ ship: null, isAttacked: false })),
     );
+
     #ships = [];
 
     placeShip(ship, x, y, isVertical) {
         if (!this.#validateCoords(x, y))
             throw Error("You need to provide valid coords");
-        if (this.#board[x][y].ship) throw Error("Cell is already occupied");
 
         if (!this.#canPlace(ship, x, y, isVertical)) {
             throw Error("Unable to place the ship in given coords");
@@ -54,7 +54,7 @@ export class Gameboard {
 
         const cell = this.#board[x][y];
 
-        if (cell.isAttacked === true) throw Error("Cell already attacked");
+        if (cell.isAttacked === true) throw Error("Cell was already attacked");
 
         cell.isAttacked = true;
 
