@@ -3,7 +3,9 @@ export class Gameboard {
 
     #board = Array(10)
         .fill()
-        .map(() => Array(10).fill({ ship: null, isAttacked: false }));
+        .map(() =>
+            Array(Gameboard.BOARD_SIZE).fill({ ship: null, isAttacked: false }),
+        );
     #ships = [];
 
     placeShip(ship, x, y, isVertical) {
@@ -64,7 +66,7 @@ export class Gameboard {
         return false;
     }
 
-    #allShipsSunk() {
+    allShipsSunk() {
         return this.#ships.every((ship) => ship.isSunk());
     }
 
