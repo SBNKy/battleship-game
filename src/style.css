@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, Georgia, "Times New Roman", Times, serif;
+    height: 100vh;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 auto;
+}
+
+header {
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    padding: 12px 0;
+}
+
+.board {
+    width: 400px;
+    display: grid;
+    grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+    gap: 1px;
+}
+
+.cell {
+    border: 1px solid rgb(64, 64, 253);
+    aspect-ratio: 1 / 1;
+    padding: 2px;
+}
+
+.ship {
+    background-color: lightblue;
+}
