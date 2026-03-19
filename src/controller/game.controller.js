@@ -5,22 +5,37 @@ export class GameController {
     #view;
     #playerBoard;
     #enemyBoard;
-    #playerTurn = true;
-    #isGameOver = false;
+    #playerTurn;
+    #isGameOver;
 
     constructor(view) {
         this.#view = view;
-        this.#playerBoard = new Gameboard();
-        this.#enemyBoard = new Gameboard();
     }
 
     initGame() {
+        this.#view.bindAttack(this.handleBoardClick.bind(this));
+
+        this.resetGame();
+    }
+
+    resetGame() {
+        this.#playerBoard = new Gameboard();
+        this.#enemyBoard = new Gameboard();
+        this.#playerTurn = true;
+        this.#isGameOver = false;
+
         const shipsLength = [5, 4, 3, 3, 2, 1];
         this.#randomizeFleet(this.#playerBoard, shipsLength);
         this.#randomizeFleet(this.#enemyBoard, shipsLength);
 
-        this.#view.bindAttack(this.handleBoardClick.bind(this));
+        this.#view.clearBoards();
         this.#view.renderView(Gameboard.BOARD_SIZE);
+        this.#updateUI();
+    }
+
+    randomizeFleetPlacement(shipsLength = [5, 4, 3, 3, 2, 1]) {
+        this.#playerBoard = new Gameboard();
+        this.#randomizeFleet(this.#playerBoard, shipsLength);
         this.#updateUI();
     }
 
@@ -52,9 +67,11 @@ export class GameController {
             if (this.#enemyBoard.allShipsSunk()) {
                 this.#isGameOver = true;
                 alert("Human won");
+                return;
             }
 
             if (!isHit) {
+                this.#playerTurn = false;
                 this.#computerTurn();
                 this.#updateUI();
             }
@@ -64,20 +81,35 @@ export class GameController {
     }
 
     #updateUI() {
-        this.#view.updateView(
-            this.#view.playerBoardDiv,
+        this.#view.updateBoards(
             this.#playerBoard.board,
-            false,
-        );
-
-        this.#view.updateView(
-            this.#view.enemyBoardDiv,
             this.#enemyBoard.board,
-            true,
         );
     }
 
     #computerTurn() {
-        return;
+        setTimeout(() => {
+            try {
+                const x = Math.floor(Math.random() * 10);
+                const y = Math.floor(Math.random() * 10);
+
+                const isHit = this.#playerBoard.receiveAttack(x, y);
+                this.#updateUI();
+
+                if (this.#playerBoard.allShipsSunk()) {
+                    this.#isGameOver = true;
+                    alert("Computer Won");
+                    return;
+                }
+
+                if (isHit) {
+                    this.#computerTurn();
+                } else {
+                    this.#playerTurn = true;
+                }
+            } catch {
+                this.#computerTurn();
+            }
+        }, 600);
     }
 }

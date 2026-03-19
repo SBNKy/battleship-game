@@ -7,4 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const game = new GameController(view);
     game.initGame();
+
+    const resetBtn = document.querySelector(".reset-button");
+    const randomizeBtn = document.querySelector(".randomize-button");
+
+    randomizeBtn.addEventListener("click", () => {
+        game.randomizeFleetPlacement();
+    });
+
+    resetBtn.addEventListener("click", () => {
+        game.resetGame();
+    });
 });

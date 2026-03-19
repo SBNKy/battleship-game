@@ -25,18 +25,22 @@ export class GameView {
         });
     }
 
-    updateView(boardElement, board, isEnemy) {
-        console.log(board.length);
+    updateBoards(playerData, enemyData) {
+        this.#updateView(this.playerBoardDiv, playerData, false);
+        this.#updateView(this.enemyBoardDiv, enemyData, true);
+    }
+
+    #updateView(boardElement, board, isEnemy) {
         for (let x = 0; x < board.length; x++) {
             for (let y = 0; y < board.length; y++) {
                 const cellData = board[x][y];
-                console.log("drawing for ", x, y);
+
                 const cell = boardElement.querySelector(
                     `[data-x="${x}"][data-y="${y}"]`,
                 );
 
                 cell.className = "cell";
-                console.log(cellData);
+
                 if (cellData.ship && !isEnemy) {
                     cell.classList.add("ship");
                 }
@@ -62,5 +66,10 @@ export class GameView {
 
             handler(x, y);
         });
+    }
+
+    clearBoards() {
+        this.playerBoardDiv.innerHTML = "";
+        this.enemyBoardDiv.innerHTML = "";
     }
 }
