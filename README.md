@@ -1,3 +1,3 @@
-## Useful commands
+## Battleship game
 
-npm install - install packages from package.json
+A Battleship game implemented in JavaScript that allows you to play against the computer.
